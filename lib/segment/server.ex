@@ -18,7 +18,7 @@ defmodule Segment.Server do
   end
 
   def send_track(t = %Track{}) do
-    GenServer.cast(__MODULE__, t)
+    send(t)
   end
 
   def send_track(user_id, event, properties \\ %{}, context \\ Context.new()) do
@@ -27,7 +27,7 @@ defmodule Segment.Server do
   end
 
   def send_identify(i = %Identify{}) do
-    GenServer.cast(__MODULE__, i)
+    send(i)
   end
 
   def send_identify(user_id, traits \\ %{}, context \\ Context.new()) do
@@ -36,7 +36,7 @@ defmodule Segment.Server do
   end
 
   def send_screen(s = %Screen{}) do
-    GenServer.cast(__MODULE__, s)
+    send(s)
   end
 
   def send_screen(user_id, name \\ "", properties \\ %{}, context \\ Context.new()) do
@@ -45,7 +45,7 @@ defmodule Segment.Server do
   end
 
   def send_alias(a = %Alias{}) do
-    GenServer.cast(__MODULE__, a)
+    send(a)
   end
 
   def send_alias(user_id, previous_id, context \\ Context.new()) do
@@ -54,7 +54,7 @@ defmodule Segment.Server do
   end
 
   def send_group(g = %Group{}) do
-    GenServer.cast(__MODULE__, g)
+   send(g)
   end
 
   def send_group(user_id, group_id, traits \\ %{}, context \\ Context.new()) do
@@ -63,7 +63,7 @@ defmodule Segment.Server do
   end
 
   def send_page(p = %Page{}) do
-    GenServer.cast(__MODULE__, p)
+    send(p)
   end
 
   def send_page(user_id, name \\ "", properties \\ %{}, context \\ Context.new()) do
@@ -71,38 +71,18 @@ defmodule Segment.Server do
     send_page(p)
   end
 
-  def handle_cast(%Track{} = t, state) do
-    resp = @adapter.post!(t.method, Poison.encode!(t), [ ssl: [{:versions, [:'tlsv1.2']}] ])
-    Logger.debug fn -> "#{inspect resp}" end
-    {:noreply, state}
+  defp send(event) do
+    GenServer.cast(__MODULE__, event)
   end
 
-  def handle_cast(%Identify{} = i, state) do
-    resp = @adapter.post!(i.method, Poison.encode!(i), [ ssl: [{:versions, [:'tlsv1.2']}] ])
-    Logger.debug fn -> "#{inspect resp}" end
-    {:noreply, state}
-  end
+  def handle_cast(event, state) do
+    resp = @adapter.post!(
+      event.method,
+      Poison.encode!(event),
+      [],
+      [ssl: [{:versions, [:'tlsv1.2']}]]
+    )
 
-  def handle_cast(%Screen{} = s, state) do
-    resp = @adapter.post!(s.method, Poison.encode!(s), [ ssl: [{:versions, [:'tlsv1.2']}] ])
-    Logger.debug fn -> "#{inspect resp}" end
-    {:noreply, state}
-  end
-
-  def handle_cast(%Alias{} = a, state) do
-    resp = @adapter.post!(a.method, Poison.encode!(a), [ ssl: [{:versions, [:'tlsv1.2']}] ])
-    Logger.debug fn -> "#{inspect resp}" end
-    {:noreply, state}
-  end
-
-  def handle_cast(%Group{} = g, state) do
-    resp = @adapter.post!(g.method, Poison.encode!(g), [ ssl: [{:versions, [:'tlsv1.2']}] ])
-    Logger.debug fn -> "#{inspect resp}" end
-    {:noreply, state}
-  end
-
-  def handle_cast(%Page{} = p, state) do
-    resp = @adapter.post!(p.method, Poison.encode!(p), [ ssl: [{:versions, [:'tlsv1.2']}] ])
     Logger.debug fn -> "#{inspect resp}" end
     {:noreply, state}
   end
