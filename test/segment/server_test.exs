@@ -11,7 +11,7 @@ defmodule Segment.ServerTest do
   describe "&Segment.Server.send_track/2" do
     test "sends a request to segment" do
       Segment.HTTP.AdapterMock
-      |> expect(:post!, fn "track", body, opts ->
+      |> expect(:post!, fn "track", body, headers, opts ->
         assert body == Poison.encode!(%Track{
           anonymousId: nil,
           context: %Context{
@@ -39,6 +39,7 @@ defmodule Segment.ServerTest do
           timestamp: nil,
           userId: "343434"
         })
+        assert length(headers) == 0
         assert opts == [ssl: [versions: [:"tlsv1.2"]]]
       end)
       |> stub(:post, fn _, _ -> :ok end)
