@@ -34,7 +34,7 @@ defmodule AnalyticsElixir.Mixfile do
   defp package do
     [
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
-      maintainers: ["Luke Swithenbank"],
+      maintainers: ["Martin Stannard"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/expert360/analytics-elixir"},
       organization: "expert360"
