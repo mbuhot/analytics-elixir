@@ -4,7 +4,7 @@ defmodule AnalyticsElixir.Mixfile do
   def project do
     [
       app: :segment,
-      version: "1.1.1",
+      version: "1.1.0",
       elixir: "~> 1.5",
       deps: deps(),
       description: "analytics_elixir",
@@ -24,8 +24,8 @@ defmodule AnalyticsElixir.Mixfile do
 
   defp deps do
     [
-      {:httpoison, "~> 1.5.0"},
-      {:poison, "~> 4.0"},
+      {:httpoison, "~> 0.13"},
+      {:poison, "~> 3.1"},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:mox, ">= 0.0.0", only: :test}
     ]
@@ -34,7 +34,7 @@ defmodule AnalyticsElixir.Mixfile do
   defp package do
     [
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
-      maintainers: ["Martin Stannard"],
+      maintainers: ["Luke Swithenbank"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/expert360/analytics-elixir"},
       organization: "expert360"
