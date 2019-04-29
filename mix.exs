@@ -18,14 +18,14 @@ defmodule AnalyticsElixir.Mixfile do
   def application do
     [
       mod: {Segment.Application, []},
-      extra_applications: [:logger],
+      extra_applications: [:logger]
     ]
   end
 
   defp deps do
     [
       {:httpoison, "~> 0.13"},
-      {:poison, "~> 3.1"},
+      {:poison, "~> 4.0.0"},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:mox, ">= 0.0.0", only: :test}
     ]
