@@ -29,7 +29,6 @@ defmodule Segment.Sandbox do
   end
 
   def get_identify do
-
     Agent.get(__MODULE__, &Map.get(&1, "identify"))
   end
 
@@ -43,7 +42,6 @@ defmodule Segment.Sandbox do
   end
 
   def get_screen do
-
     Agent.get(__MODULE__, &Map.get(&1, "screen"))
   end
 
@@ -71,7 +69,6 @@ defmodule Segment.Sandbox do
 
   def get_group do
     Agent.get(__MODULE__, &Map.get(&1, "group"))
-
   end
 
   def send_group(user_id, group_id, traits \\ %{}, context \\ Context.new()) do
@@ -91,5 +88,4 @@ defmodule Segment.Sandbox do
     p = %Page{userId: user_id, name: name, properties: properties, context: context}
     send_page(p)
   end
-
 end

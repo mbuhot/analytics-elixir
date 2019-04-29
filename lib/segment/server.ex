@@ -14,7 +14,7 @@ defmodule Segment.Server do
   @adapter Application.get_env(:segment, :http_adapter) || Segment.HTTP.HTTPoison
 
   def start_link(args) do
-    GenServer.start_link(__MODULE__, args, [name: __MODULE__])
+    GenServer.start_link(__MODULE__, args, name: __MODULE__)
   end
 
   def send_track(t = %Track{}) do
@@ -54,7 +54,7 @@ defmodule Segment.Server do
   end
 
   def send_group(g = %Group{}) do
-   send(g)
+    send(g)
   end
 
   def send_group(user_id, group_id, traits \\ %{}, context \\ Context.new()) do
@@ -76,14 +76,15 @@ defmodule Segment.Server do
   end
 
   def handle_cast(event, state) do
-    resp = @adapter.post!(
-      event.method,
-      Poison.encode!(event),
-      [],
-      [ssl: [{:versions, [:'tlsv1.2']}]]
-    )
+    resp =
+      @adapter.post!(
+        event.method,
+        Poison.encode!(event),
+        [],
+        ssl: [{:versions, [:"tlsv1.2"]}]
+      )
 
-    Logger.debug fn -> "#{inspect resp}" end
+    Logger.debug(fn -> "#{inspect(resp)}" end)
     {:noreply, state}
   end
 end

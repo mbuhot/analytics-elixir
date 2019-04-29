@@ -8,7 +8,7 @@ defmodule AnalyticsElixir.Mixfile do
       elixir: "~> 1.5",
       deps: deps(),
       description: "analytics_elixir",
-      package: package(),
+      package: package()
     ]
   end
 
@@ -36,7 +36,7 @@ defmodule AnalyticsElixir.Mixfile do
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Luke Swithenbank"],
       licenses: ["MIT"],
-      links: %{ "GitHub" => "https://github.com/lswith/analytics-elixir" }
+      links: %{"GitHub" => "https://github.com/lswith/analytics-elixir"}
     ]
   end
 end
