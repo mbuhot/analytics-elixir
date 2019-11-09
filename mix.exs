@@ -24,7 +24,7 @@ defmodule AnalyticsElixir.Mixfile do
 
   defp deps do
     [
-      {:httpoison, "~> 1.5.0"},
+      {:httpoison, "~> 1.6.2"},
       {:poison, "~> 4.0"},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:mox, ">= 0.0.0", only: :test}
